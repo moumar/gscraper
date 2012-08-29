@@ -386,7 +386,8 @@ module GScraper
       #
       def page(page_index)
         Page.new do |new_page|
-          doc = @agent.get(page_url(page_index))
+          url = page_url(page_index).to_s.force_encoding("utf-8")
+          doc = @agent.get(url)
 
           if doc.at('//div/a[@href="http://www.google.com/support/bin/answer.py?answer=86640"]')
             raise(Blocked,"Google has temporarily blocked our IP Address",caller)
